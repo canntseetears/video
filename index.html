@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Vvideo</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="img/favicon.ico">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <style>
+      body { padding-top: 52px;background-color: #f6f5ec;
+       position: relative;
+       }
+      /* ol{ padding:0;margin: 0;}  数字移到盒子外面 */
+      #today_rank {
+        padding:10px,10px;
+      }
+      #left1{
+        padding-top:5px;
+        padding-left: 30px;
+        border:5px solid #ccc;
+        border-radius: 3px;
+        background-color:rgb(208, 217, 228) ;
+        position:fixed;
+        top:300px;
+        left:20px;
+      }
+      #left1 ol{
+        padding-left: 15px;
+      }
+      #today_rank li{
+        height: 30px;
+        line-height: 30px;
+      }
+      #today_rank a:hover{
+        background-color:rgba(224, 214, 214, 0.794);
+        color: black;
+        font-weight:200px ;
+      }
+      #box_carousel{
+        background-color:rgba(236, 236, 236, 0.815);
+      }
+      .padding-top{
+        padding-top: 12px;
+      }
+      .padding-left{
+        padding-left:5px;
+      }
+      .jx {
+          color:#bd232b;
+        }
+      .line-bottom{
+        padding:2px;
+        border-bottom: 2px solid #e4c61f;
+      }
+      #myScrollspy{
+        position:fixed;
+        top: 300px;
+      }
+
+  </style>
+  <body data-spy="scroll" data-target="#myScrollspy" data-offset="1">
+      <!-- 导航栏     需要为 body 元素设置内补（padding） -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <!-- default与inverse -->
+                <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <!-- 三折叠小按钮，可合并 -->
+                    </button>
+                    <a class="navbar-left" href="#"><img alt="Brand" src="img/Video.png"  height="100%"></a>
+                  </div>
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <!-- 合并区内容，对应上面button的data-toggle="collapse" -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                      <li ><a href="#" >点我发现新大陆</a> <span class="sr-only">(current)</span></a></li>
+                      <li><a href="#">音乐区</a></li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多分类<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">美国电影</a></li>
+                          <li><a href="#">中国电影</a></li>
+                          <li><a href="#">韩国电影</a></li>
+                          <!-- 分小组 -->
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#">电视剧</a></li>
+                          <!-- 分小组 -->
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#">动漫</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="请输入电影名称">
+                      </div>
+                      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><button type="button" class="btn btn-default navbar-btn">登录</button></li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">language <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">English</a></li>
+                          <li><a href="#">中文</a></li>
+                          <li><a href="#">繁體</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+        </nav>
+              <!-- <script>alert(window.innerWidth);alert(window.innerHeight)</script> -->
+              <!-- 进度条 -->
+        <div class="progress" id="pro">
+            <span id="span_color">划水<span id="minutes"></span>分<span id="seconds"></span>秒</span>
+                    <div id="pro_bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    </div>
+        </div>
+        <!-- 轮播图 -->
+      <div id="box_carousel" class="container-fluid">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div id="my-carousel" class="carousel slide" data-ride="carousel" ata-interval="3000">
+                  <!-- Indicators 小圆点 -->
+                  <ol class="carousel-indicators">
+                    <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#my-carousel" data-slide-to="1"></li>
+                    <li data-target="#my-carousel" data-slide-to="2"></li>
+                  </ol>
+                  <!-- Wrapper for slides 图片内容 -->
+                  <div class="carousel-inner" role="listbox">
+                    <!--以下是各张的图片的详细编辑，首张图片的class值必须为item active，余下的皆为item-->
+                    <div class="item active">
+                      <img src="img/carousel1.jpg" class="img-responsive" alt="...">
+                      <div class="carousel-caption">《琵琶行》</div>
+                    </div>
+                    <div class="item">
+                      <img class="img-responsive" src="img/carousel2.jpg" alt="...">
+                      <div class="carousel-caption">《兰亭集序》</div>
+                    </div>
+                    <div class="item">
+                      <img class="img-responsive" src="img/carousel3.jpg" alt="...">
+                      <div class="carousel-caption">《将进酒》</div>
+                    </div>
+                  </div>
+                  <!-- Controls控制器 -->
+                  <a class="left carousel-control" href="#my-carousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#my-carousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                  <!-- </div> -->
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </div>
+      <!-- 滚动监听以及缩略图 -->
+      <div class="container-fluid padding-top">
+        <div class="row">
+          <div class="col-md-2" id="today_rank">
+            <!-- 今日排行部分（左边）表格实现 -->
+            <div class="container-fluid" id="left1">      
+                <span class="glyphicon glyphicon-facetime-video " ria-hidden="true" style="font-size:20px ">今日排行</span>
+                <ol>
+                  <li><a href="#" style="font-size:17px"> January</a></li>
+                  <li><a href="#" style="font-size:17px"> February</a></li>
+                  <li><a href="#" style="font-size:17px"> April</a></li>
+                  <li><a href="#" style="font-size:17px"> October</a></li>
+                  <li><a href="#" style="font-size:17px"> December</a></li>
+                  <li><a href="#" style="font-size:17px"> December</a></li>
+                  <li><a href="#" style="font-size:17px"> December</a></li>
+                  <li><a href="#" style="font-size:17px"> December</a></li>
+
+                </ol>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <!-- 缩略图 z主分两行-->
+            <div class="row padding-left" id="TV">
+             <div class="row line-bottom ">
+              <!-- 电视剧 第一行-->
+              <img src="img/icon.jpg">
+              <span class="jx">电视剧</span>
+             </div>
+             <!-- 第二行影片内容 -->
+             <div class="row padding-top">
+              <div class="col-md-3">
+                <div class="thumbnail">
+                  <img src="img/下载.jpg" alt="">
+                  <div class="caption">
+                    <h5>神雕侠侣1</h5>
+                    <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3"><div class="thumbnail">
+                  <img src="img/下载.jpg" alt="">
+                  <div class="caption">
+                    <h5>神雕侠侣1</h5>
+                    <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                  </div>
+                </div></div>
+              <div class="col-md-3"><div class="thumbnail">
+                  <img src="img/下载.jpg" alt="">
+                  <div class="caption">
+                    <h5>神雕侠侣1</h5>
+                    <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                  </div>
+                </div></div>
+              <div class="col-md-3"><div class="thumbnail">
+                  <img src="img/下载.jpg" alt="">
+                  <div class="caption">
+                    <h5>神雕侠侣1</h5>
+                    <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                  </div>
+                </div></div>
+             </div>
+             <div class="row padding-top">
+                <div class="col-md-3">
+                  <div class="thumbnail">
+                    <img src="img/下载.jpg" alt="">
+                    <div class="caption">
+                      <h5>神雕侠侣1</h5>
+                      <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3"><div class="thumbnail">
+                    <img src="img/下载.jpg" alt="">
+                    <div class="caption">
+                      <h5>神雕侠侣1</h5>
+                      <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                    </div>
+                  </div></div>
+                <div class="col-md-3"><div class="thumbnail">
+                    <img src="img/下载.jpg" alt="">
+                    <div class="caption">
+                      <h5>神雕侠侣1</h5>
+                      <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                    </div>
+                  </div></div>
+                <div class="col-md-3"><div class="thumbnail">
+                    <img src="img/下载.jpg" alt="">
+                    <div class="caption">
+                      <h5>神雕侠侣1</h5>
+                      <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                    </div>
+                  </div></div>
+             </div>
+            </div>
+            <div class="row">
+                <div class="row line-bottom" id="movie">
+                 <!-- 电视剧 第一行-->
+                 <img src="img/icon.jpg">
+                 <span class="jx">电影</span>
+                </div>
+                <!-- 第二行影片内容 -->
+                <div class="row padding-top">
+                 <div class="col-md-3">
+                   <div class="thumbnail">
+                     <img src="img/下载1.jpg" alt="">
+                     <div class="caption">
+                       <h5>头文字D</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="col-md-3"><div class="thumbnail">
+                     <img src="img/下载1.jpg" alt="">
+                     <div class="caption">
+                       <h5>头文字D</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div></div>
+                 <div class="col-md-3"><div class="thumbnail">
+                     <img src="img/下载1.jpg" alt="">
+                     <div class="caption">
+                       <h5>头文字D</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div></div>
+                 <div class="col-md-3"><div class="thumbnail">
+                     <img src="img/下载1.jpg" alt="">
+                     <div class="caption">
+                       <h5>头文字D</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div></div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="row line-bottom" id="comic">
+                 <!-- 电视剧 第一行-->
+                 <img src="img/icon.jpg">
+                 <span class="jx">动漫</span>
+                </div>
+                <!-- 第二行影片内容 -->
+                <div class="row padding-top">
+                 <div class="col-md-3">
+                   <div class="thumbnail">
+                     <img src="img/下载2.jpg" alt="">
+                     <div class="caption">
+                       <h5>野良神</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="col-md-3"><div class="thumbnail">
+                     <img src="img/下载2.jpg" alt="">
+                     <div class="caption">
+                       <h5>野良神</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div></div>
+                 <div class="col-md-3"><div class="thumbnail">
+                     <img src="img/下载2.jpg" alt="">
+                     <div class="caption">
+                       <h5>野良神</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div></div>
+                 <div class="col-md-3"><div class="thumbnail">
+                     <img src="img/下载2.jpg" alt="">
+                     <div class="caption">
+                       <h5>野良神</h5>
+                       <p><a href="#" class="btn btn-primary" role="button">立即观看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-primary" role="button">下载</a></p>
+                     </div>
+                   </div></div>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <!-- 垂直滚动监听 -->
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <nav id="myScrollspy">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="#pro">置顶</a></li>
+                        <li><a href="#TV">电视剧</a></li>
+                        <li><a href="#movie">电影</a></li>
+                        <li><a href="#comic">动漫</a></li>
+                        <!-- <li class="dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#comic">动漫 <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">国漫</a></li>
+                            <li><a href="#comic">日漫</a></li>                     
+                          </ul>
+                        </li> -->
+                    </ul>
+                </nav>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+              <!-- 底部分页 -->
+        <nav aria-label="Page navigation" style="text-align: center;"> 
+              <ul class="pagination pagination-lg">
+                <li >
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li >
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+        </nav>  
+
+        <!-- footer部分 -->
+        <footer>
+          <div class="container-fluid">
+            <div class="row">
+              <img src="img/footer1.jpg" alt="" class="img-responsive">
+            </div>
+            <div class="row " style="background-color:#cbcde9;height: 110px;" >
+              <div class="col-md-4 ">
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-2">
+                    <a href="https://www.baidu.com" data-toggle="tooltip" title="百度官网"><img src="img/BD.png"></a>
+                  </div>
+                  <div class="col-md-2 col-md-offset-2">
+                    <a href="http://lol.qq.com" data-toggle="tooltip" title="LOL官网"><img src="img/lol.png"></a>
+                  </div>
+                  <div class="col-md-2 col-md-offset-2">
+                    <a href="https://www.w3school.com.cn" data-toggle="tooltip" title="W3C官网"><img src="img/W3C.png"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </div>
+        </footer>
+        <script>
+            $(function(){
+                // 点击添加active
+                $("nav li").click(function(index){
+                    $(this).addClass("active");
+                    var now=this;
+                    $("nav li").each(function(index){
+                        if(this!=now){
+                            $(this).removeClass("active");
+                        }
+                    })
+                })
+                // 计数器，动态进度条
+                var value=0;
+                var second=0;
+                var minute=0;
+                $("#span_color").css("color","#F1A20E")
+                setInterval(function(){
+                    value+=0.05;
+                    second+=1;
+                    $("#pro_bar").css("width",value+"%");
+                    $("#seconds").text(second);
+                    $("#minutes").text(minute);
+                    if(second==59){
+                        minute+=1;
+                        second=0;
+                    }
+                    if(minute==25){
+                        alert("请您下船~");
+                        minute=0;
+                        second=0;
+                    }
+                },1000)
+                //激活提示插件
+                $("[data-toggle='tooltip']").tooltip();
+            })
+        </script>
+  </body>
+</html>
